@@ -9,15 +9,20 @@ use App\Http\Controllers\DiscountManager;
 use App\Http\Controllers\CartegoryManager;
 use App\Http\Controllers\AttributesManager;
 use App\Http\Controllers\DefaulatatrributesManager;
+use App\Http\Controllers\HomePageManager;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubCartegoryManager;
 use App\Http\Controllers\MastercategoryManager;
 use App\Http\Controllers\MasterSubcategoryManager;
+use App\Livewire\Home\Welcome;
 use App\Models\DefaultAttributes;
+//homepagecontroller
+ Route::controller(HomePageManager::class)->group(function () {
+Route::get('/',"home_index")->name("myhome");
+Route::get('/product_details/{id}',"detils")->name("detail");
 
-Route::get('/', function () {
-    return view('welcome');
-});
+        });
+// Route::get('/',Welcome::class)->name("homepage");
 //customer routes
 Route::middleware(['auth', 'verified', 'rolemiddleware:customer'])->group(function () {
     Route::prefix('customer')->group(function () {
@@ -37,6 +42,7 @@ Route::middleware(['auth', 'verified', 'rolemiddleware:admin'])->group(function 
     Route::controller(AdminManager::class)->group(function () {
         Route::get("/dashboard","index")->name("admin_dashboard");
         Route::get("/settings","settings")->name("settings");
+        Route::put("/update_admin_settings","update_settings")->name("up_settings");
         Route::get("/user","user")->name("user_manager");
         Route::get("/add_user","add_user")->name("add_user");
         Route::get("/cart_his","cart_his")->name("cart_his");
@@ -72,10 +78,7 @@ Route::delete("/delete_sub/{id}","delete_sub")->name("delete_sub");
             Route::get("/create_subcategory","create_subcategory")->name("create_subcategory");
     Route::get("/manager_sub","manager_sub")->name("manager_sub");
         });
-        Route::controller(ProductManager::class)->group(function () {
-            Route::get("/manager_prodduct","manager_prodduct")->name("manager_prodduct");
-    Route::get("/review_product","review_product")->name("review_product");
-        });
+
         //atrributes
         Route::controller(AttributesManager::class)->group(function () {
             Route::get("/reate_attribute","create_attribute")->name("create_attribute");
@@ -103,8 +106,8 @@ Route::middleware(['auth', 'verified', 'rolemiddleware:vendor'])->group(function
         Route::controller(VendorManager::class)->group(function () {
             Route::get('/vendor/dashboard',"index")->name("vendor_dashboard");
             Route::get('/cart/dashboard',"show_cart")->name("show_cart");
-            Route::get('/products',"show_products")->name("show_products");
-            Route::get('/add_products',"add_products")->name("add_products");
+            // Route::get('/products',"show_products")->name("show_products");
+            // Route::get('/add_products',"add_products")->name("add_products");
            // Route::get('/plus',"plus_store")->name("create_stores");
             Route::get('/manage_store',"manage_store")->name("manage_stores");
             Route::get('/view',"view_form")->name("view_store_form");
@@ -112,6 +115,17 @@ Route::middleware(['auth', 'verified', 'rolemiddleware:vendor'])->group(function
             Route::get('/edit_store/{id}/dashboard',"edit_stores")->name("edit_stores");
             Route::put('/update_store/{id}/dashboard',"update_storage")->name("update_storage");
         });
+                //products
+                Route::controller(ProductManager::class)->group(function () {
+                    Route::get("/manager_prodduct","manager_prodduct")->name("manager_prodduct");
+                    Route::get("/create_prodduct","create_products")->name("create_prodduct");
+                    Route::post("/prodduct_store","store_products")->name("vendor_store_prodduct");
+            Route::get("/review_product","review_product")->name("review_product");
+            Route::get("/view_single/{id}","view_single_product")->name("view_single_product");
+            Route::get("/edit_vendor_products/{id}","edit_vendor_products")->name("edit_vendor_product");
+            Route::delete("/delete_vendor_pdt/{id}","delete_vendor_pdts")->name("delete_vendor_pdts");
+            Route::put("/update_vendor_pdt/{id}","update_vendor_pdt")->name("update_vendor_pdts");
+                });
     });
 });
 

@@ -22,9 +22,9 @@
 
                     @enderror
                     </div>
-                    {{-- <div class="form-float mt-4 mb-2 px-3 py-4 p-1">
+                    <div class="form-float mt-4 mb-2 px-3 py-4 p-1">
                         <label for="forminput" class="mt-4 mb-2">item slug</label>
-                        <input value="{{($stores->slug)}}" name="name" type="text" class="form-control">
+                        <input value="{{($stores->slug)}}" name="slug" type="text" class="form-control">
                     @error("slug")
                     <span class="text text-danger text-center mt-1 mb-1 p-1">{{"$message"}}</span>
 
@@ -32,15 +32,15 @@
                     </div>
                     <div class="form-float mt-4 mb-2 px-3 py-4 p-1">
                         <label for="forminput" class="mt-4 mb-2">item description</label>
-                        <textarea name="dsecription" id="dsecription" cols="3" rows="2" type="text" class="form-control"></textarea>
+                        <textarea name="description" id="description" cols="3" rows="2" type="text" class="form-control"></textarea>
                     @error("description")
                     <span class="text text-danger text-center mt-1 mb-1 p-1">{{"$message"}}</span>
 
-                    @enderror --}}
-                    {{-- </div>
-                    <div class="form-float mt-4 mb-2 px-3 py-4 p-1">
+                    @enderror
+                    </div>
+                    {{-- <div class="form-float mt-4 mb-2 px-3 py-4 p-1">
                         <label for="forminput" class="mt-4 mb-2">item name</label>
-                        <input value="{{($subcategories->name)}}" name="name" type="text" class="form-control">
+                        <input value="{{($subcategories->name)}}" name="subca" type="text" class="form-control">
                     @error("name")
                     <span class="text text-danger text-center mt-1 mb-1 p-1">{{"$message"}}</span>
 

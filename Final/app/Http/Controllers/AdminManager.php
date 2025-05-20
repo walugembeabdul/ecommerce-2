@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Products;
 use Illuminate\Http\Request;
+use App\Models\Homepagesetting;
 
 class AdminManager extends Controller
 {
@@ -10,7 +13,25 @@ class AdminManager extends Controller
         return view("dashboard.admin");
     }
     public function settings(){
-        return view("admin.setting.add");
+
+        $products=Products::all();
+        $homepage=Homepagesetting::first()??new Homepagesetting();
+        return view("admin.setting.add",compact("products","homepage"));
+    }
+    public function update_settings(Request $request){
+        $request->validate([
+            "discounted_product_id"=>"required|exists:products,id",
+            "discount_title"=>"required|string",
+            "discount_percentage"=>"required|numeric",
+            "product_1_id"=>"required",
+            "product_2_id"=>"required",
+
+        ]);
+        $homepage=Homepagesetting::first()?? new Homepagesetting();
+        $homepage->fill($request->all());
+        $homepage->save();
+        return redirect(route("settings"))->with("success","home page settings update successfully");
+
     }
     public function user(){
         return view("admin.user.manager");
